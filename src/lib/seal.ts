@@ -58,6 +58,7 @@ function validateEdmPayload(payload: unknown): asserts payload is EdmPayload {
 
 /**
  * Extract governance fields from EDM payload to construct ddna_header
+ * Uses EDM v0.4.0 canonical field names with backward compatibility
  *
  * @param payload - EDM payload
  * @param options - Optional header overrides
@@ -71,36 +72,56 @@ function constructDdnaHeader(
   const governance = payload.governance as Record<string, unknown> | undefined;
 
   // Determine EDM version from payload
-  // schema_version may be "edm.v0.4.0" or "0.4.0" - normalize to just version number
-  const rawSchemaVersion = (meta.schema_version as string) || 'edm.v0.4.0';
-  const edmVersion = rawSchemaVersion.replace(/^edm\.v/, '');
+  // Canonical v0.4.0 uses meta.version, legacy uses meta.schema_version
+  const rawVersion = (meta.version as string) ||
+    (meta.schema_version as string) ||
+    '0.4.0';
+  // Normalize: strip "edm.v" prefix if present
+  const edmVersion = rawVersion.replace(/^edm\.v/, '');
 
   // payload_type uses the full schema identifier (e.g., "edm.v0.4.0")
-  const payloadType = rawSchemaVersion.startsWith('edm.v')
-    ? rawSchemaVersion
-    : `edm.v${rawSchemaVersion}`;
+  const payloadType = `edm.v${edmVersion}`;
 
   // Extract governance info if present
   const jurisdiction = (governance?.jurisdiction as string) || options?.jurisdiction || 'UNKNOWN';
   const exportability = (governance?.exportability as DdnaHeader['exportability']) ||
     options?.exportability || 'allowed';
-  const consentBasis = (governance?.consent_basis as string) ||
-    (meta.consent_basis as string) || options?.consent_basis || 'explicit_consent';
+
+  // Consent basis: check meta (canonical v0.4.0 location) first
+  const consentBasis = (meta.consent_basis as string) ||
+    (governance?.consent_basis as string) ||
+    options?.consent_basis ||
+    'consent';
+
+  // Owner ID: canonical v0.4.0 uses owner_user_id, legacy uses subject_id
+  const ownerUserId = (meta.owner_user_id as string | null) ||
+    (meta.subject_id as string | null) ||
+    null;
+
+  // Extract retention policy from governance if present
+  const govRetention = governance?.retention_policy as Record<string, unknown> | undefined;
+  const retentionPolicy: DdnaHeader['retention_policy'] = govRetention
+    ? {
+        basis: (govRetention.basis as DdnaHeader['retention_policy']['basis']) || 'user_defined',
+        ttl_days: (govRetention.ttl_days as number | null) ?? null,
+        on_expiry: (govRetention.on_expiry as DdnaHeader['retention_policy']['on_expiry']) || 'soft_delete',
+      }
+    : {
+        basis: 'user_defined',
+        ttl_days: null,
+        on_expiry: 'soft_delete',
+      };
 
   const header: DdnaHeader = {
     ddna_version: '1.1',
     created_at: new Date().toISOString(),
     edm_version: edmVersion,
-    owner_user_id: (meta.subject_id as string) || null,
+    owner_user_id: ownerUserId,
     exportability,
     jurisdiction,
     payload_type: payloadType,
     consent_basis: consentBasis,
-    retention_policy: {
-      basis: 'user_defined',
-      ttl_days: null,
-      on_expiry: 'soft_delete',
-    },
+    retention_policy: retentionPolicy,
     ...options,
   };
 
