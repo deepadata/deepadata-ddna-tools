@@ -1,12 +1,12 @@
 {
   "ddna_header": {
     "ddna_version": "1.1",
-    "created_at": "2026-01-15T03:18:51.008Z",
-    "edm_version": "edm.v0.4.0",
+    "created_at": "2026-01-15T07:06:36.386Z",
+    "edm_version": "0.4.0",
     "owner_user_id": "auraid-000000001",
     "exportability": "allowed",
     "jurisdiction": "AU",
-    "payload_type": "edm_artifact",
+    "payload_type": "edm.v0.4.0",
     "consent_basis": "explicit_consent",
     "retention_policy": {
       "basis": "user_defined",
@@ -46,9 +46,9 @@
   "proof": {
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
-    "created": "2026-01-15T03:18:51.008Z",
-    "verificationMethod": "did:key:z6Mkq2aNi7XF3nEqfTbKojVvfyMCGHdX5fVdgBbPsXPv36a8",
+    "created": "2026-01-15T07:06:36.387Z",
+    "verificationMethod": "did:key:z6Mkn78pEM71Cz2JciAY9saPQfwQVF8cQw6eaFfw4uBTKaW6",
     "proofPurpose": "assertionMethod",
-    "proofValue": "z2eiczSFgxXUGELobWXsuHpHo9fX7u4FKT13BjdZ9j6EQvbP1tQ4LBeRkxhQ6Tc84nV1xnymCh6gGwf3ZXDsv1tdX"
+    "proofValue": "z3yLR6EPNciXgghm9Ce1YjJQnvMasPX6zFzckWLK59LfyGMKwv3JSd1Sq68P4P4DvQmQ3T6cLLZRjz77VhFKkR669"
   }
 }

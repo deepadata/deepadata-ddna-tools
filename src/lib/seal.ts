@@ -71,7 +71,14 @@ function constructDdnaHeader(
   const governance = payload.governance as Record<string, unknown> | undefined;
 
   // Determine EDM version from payload
-  const edmVersion = (meta.schema_version as string) || 'edm.v0.4.0';
+  // schema_version may be "edm.v0.4.0" or "0.4.0" - normalize to just version number
+  const rawSchemaVersion = (meta.schema_version as string) || 'edm.v0.4.0';
+  const edmVersion = rawSchemaVersion.replace(/^edm\.v/, '');
+
+  // payload_type uses the full schema identifier (e.g., "edm.v0.4.0")
+  const payloadType = rawSchemaVersion.startsWith('edm.v')
+    ? rawSchemaVersion
+    : `edm.v${rawSchemaVersion}`;
 
   // Extract governance info if present
   const jurisdiction = (governance?.jurisdiction as string) || options?.jurisdiction || 'UNKNOWN';
@@ -87,7 +94,7 @@ function constructDdnaHeader(
     owner_user_id: (meta.subject_id as string) || null,
     exportability,
     jurisdiction,
-    payload_type: 'edm_artifact',
+    payload_type: payloadType,
     consent_basis: consentBasis,
     retention_policy: {
       basis: 'user_defined',

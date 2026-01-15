@@ -5,11 +5,12 @@
 
 /**
  * Retention policy for EDM artifacts
+ * Aligned with EDM v0.4.0 canonical schema
  */
 export interface RetentionPolicy {
-  basis: 'user_defined' | 'legal_hold' | 'regulatory' | 'indefinite';
+  basis: 'user_defined' | 'legal' | 'business_need';
   ttl_days: number | null;
-  on_expiry: 'soft_delete' | 'hard_delete' | 'archive';
+  on_expiry: 'soft_delete' | 'hard_delete' | 'anonymize';
 }
 
 /**
@@ -63,8 +64,18 @@ export type ProofOptions = Omit<DataIntegrityProof, 'proofValue'>;
 
 /**
  * EDM payload meta domain
+ * Aligned with EDM v0.4.0 canonical schema
  */
 export interface EdmMeta {
+  /** Artifact owner identifier (AuraID or vendor-specific) */
+  owner_user_id?: string | null;
+  /** EDM schema version (e.g., "0.4.0") */
+  version?: string;
+  /** ISO 8601 creation timestamp */
+  created_at?: string;
+  /** Legal basis for processing */
+  consent_basis?: string;
+  /** Legacy field names (backward compatibility) */
   subject_id?: string;
   schema_version?: string;
   consent_timestamp?: string;
