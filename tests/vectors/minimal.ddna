@@ -1,0 +1,54 @@
+{
+  "ddna_header": {
+    "ddna_version": "1.1",
+    "created_at": "2026-01-15T03:18:51.008Z",
+    "edm_version": "edm.v0.4.0",
+    "owner_user_id": "auraid-000000001",
+    "exportability": "allowed",
+    "jurisdiction": "AU",
+    "payload_type": "edm_artifact",
+    "consent_basis": "explicit_consent",
+    "retention_policy": {
+      "basis": "user_defined",
+      "ttl_days": null,
+      "on_expiry": "soft_delete"
+    }
+  },
+  "edm_payload": {
+    "meta": {
+      "subject_id": "auraid-000000001",
+      "schema_version": "edm.v0.4.0",
+      "consent_timestamp": "2026-01-15T10:00:00Z",
+      "consent_basis": "explicit_consent"
+    },
+    "core": {
+      "emotional_baseline": {
+        "valence": 0.65,
+        "arousal": 0.45,
+        "dominance": 0.55
+      },
+      "primary_affect": "contentment",
+      "timestamp": "2026-01-15T10:00:00Z"
+    },
+    "constellation": {},
+    "milky_way": {},
+    "gravity": {},
+    "impulse": {},
+    "governance": {
+      "jurisdiction": "AU",
+      "exportability": "allowed",
+      "consent_basis": "explicit_consent"
+    },
+    "telemetry": {},
+    "system": {},
+    "crosswalks": {}
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-jcs-2022",
+    "created": "2026-01-15T03:18:51.008Z",
+    "verificationMethod": "did:key:z6Mkq2aNi7XF3nEqfTbKojVvfyMCGHdX5fVdgBbPsXPv36a8",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z2eiczSFgxXUGELobWXsuHpHo9fX7u4FKT13BjdZ9j6EQvbP1tQ4LBeRkxhQ6Tc84nV1xnymCh6gGwf3ZXDsv1tdX"
+  }
+}

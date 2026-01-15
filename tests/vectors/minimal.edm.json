@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "subject_id": "auraid-000000001",
+    "schema_version": "edm.v0.4.0",
+    "consent_timestamp": "2026-01-15T10:00:00Z",
+    "consent_basis": "explicit_consent"
+  },
+  "core": {
+    "emotional_baseline": {
+      "valence": 0.65,
+      "arousal": 0.45,
+      "dominance": 0.55
+    },
+    "primary_affect": "contentment",
+    "timestamp": "2026-01-15T10:00:00Z"
+  },
+  "constellation": {},
+  "milky_way": {},
+  "gravity": {},
+  "impulse": {},
+  "governance": {
+    "jurisdiction": "AU",
+    "exportability": "allowed",
+    "consent_basis": "explicit_consent"
+  },
+  "telemetry": {},
+  "system": {},
+  "crosswalks": {}
+}

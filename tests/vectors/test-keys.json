@@ -1,0 +1,7 @@
+{
+  "description": "Test key pair for reproducible testing - DO NOT USE IN PRODUCTION",
+  "note": "These keys are public and should only be used for testing and validation",
+  "privateKey": "6097cb0c7ffbece744f97ad9ca3ac752074f32527393e7ed2bc03039243b8f93",
+  "publicKey": "61d8e6f82aa237eee945f6216cda212d372ddf3540672cf42722c1b53e01db66",
+  "did": "did:key:z6Mkm3DRQUj7LL37UCjuYPRSUa9p2WYNDc9yE4JoYbED5PSd"
+}

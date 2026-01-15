@@ -1,0 +1,68 @@
+{
+  "name": "deepadata-ddna-tools",
+  "version": "0.1.0",
+  "description": "Reference implementation for .ddna signing specification - W3C Data Integrity Proofs with Ed25519",
+  "type": "module",
+  "main": "./dist/lib/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "bin": {
+    "ddna": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ddna",
+    "deepadata",
+    "edm",
+    "signing",
+    "ed25519",
+    "data-integrity",
+    "w3c",
+    "jcs",
+    "did"
+  ],
+  "author": "Deepadata",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepadata/deepadata-ddna-tools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/deepadata/deepadata-ddna-tools/issues"
+  },
+  "homepage": "https://github.com/deepadata/deepadata-ddna-tools#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@noble/ed25519": "^2.1.0",
+    "@noble/hashes": "^1.6.0",
+    "canonicalize": "^2.0.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "multiformats": "^13.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

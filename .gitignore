@@ -137,3 +137,10 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Private keys (should never be committed)
+*.key
+!tests/vectors/*.json
+
+# Local test files
+*.local.*
