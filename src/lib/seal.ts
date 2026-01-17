@@ -112,6 +112,9 @@ function constructDdnaHeader(
         on_expiry: 'soft_delete',
       };
 
+  // Extract masking_rules from governance if present
+  const maskingRules = (governance?.masking_rules as string[]) || [];
+
   const header: DdnaHeader = {
     ddna_version: '1.1',
     created_at: new Date().toISOString(),
@@ -122,6 +125,14 @@ function constructDdnaHeader(
     payload_type: payloadType,
     consent_basis: consentBasis,
     retention_policy: retentionPolicy,
+    masking_rules: maskingRules,
+    audit_chain: [
+      {
+        timestamp: new Date().toISOString(),
+        event: 'created',
+        agent: 'deepadata-ddna-tools/0.1.0',
+      },
+    ],
     ...options,
   };
 

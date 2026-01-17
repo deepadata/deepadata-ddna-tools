@@ -368,10 +368,19 @@ describe('round-trip', () => {
     const keys = keygen();
     const timestamp = '2026-01-15T10:00:00.000Z';
 
-    // Must provide both proof.created and header.created_at for deterministic signatures
+    // Must provide proof.created, header.created_at, and audit_chain timestamp for deterministic signatures
     const sealOptions = {
       created: timestamp,
-      header: { created_at: timestamp } as Record<string, unknown>,
+      header: {
+        created_at: timestamp,
+        audit_chain: [
+          {
+            timestamp,
+            event: 'created',
+            agent: 'deepadata-ddna-tools/0.1.0',
+          },
+        ],
+      } as Record<string, unknown>,
     };
 
     const envelope1 = await seal(minimalEdm, keys.privateKey, keys.did, sealOptions);
