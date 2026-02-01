@@ -82,10 +82,13 @@ export function didToPublicKey(did: string): Uint8Array {
  * @returns true if valid
  */
 export function isValidDidUrl(didUrl: string): boolean {
+  // Strip fragment identifier (e.g., #key-1) before validation
+  const didBase = didUrl.split('#')[0];
+
   // Support did:key format
-  if (didUrl.startsWith('did:key:z')) {
+  if (didBase.startsWith('did:key:z')) {
     try {
-      didToPublicKey(didUrl);
+      didToPublicKey(didBase);
       return true;
     } catch {
       return false;
@@ -93,9 +96,8 @@ export function isValidDidUrl(didUrl: string): boolean {
   }
 
   // Support did:web format (basic validation only)
-  if (didUrl.startsWith('did:web:')) {
-    // Basic format check: did:web:<domain>#<key-id> or did:web:<domain>
-    const remainder = didUrl.slice(8);
+  if (didBase.startsWith('did:web:')) {
+    const remainder = didBase.slice(8);
     return remainder.length > 0 && /^[a-zA-Z0-9.-]+/.test(remainder);
   }
 
