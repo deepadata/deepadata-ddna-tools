@@ -25,6 +25,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "lint": "tsc --noEmit",
+    "prepare": "npm run build",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
